@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import io
 import os
 import time
 
@@ -10,6 +11,7 @@ import fsspec
 import pytest
 
 from fsspec_xrootd.xrootd import (
+    XRootDFile,
     XRootDFileSystem,
     _chunks_to_vectors,
     _vectors_to_chunks,
@@ -150,6 +152,26 @@ def test_write_rpb_fsspec(localserver, clear_server):
         f.flush()
     with fsspec.open(remoteurl + "/" + filename, "r+b") as f:
         assert f.read() == b"Hello, this is a REPLACED  for r+b mode."
+
+
+def test_upload_chunk_final_does_not_close_recursively():
+    class DummyStatus:
+        ok = True
+        message = ""
+
+    class DummyFile:
+        def write(self, data, offset, size, timeout=None):
+            return DummyStatus(), size
+
+    file_obj = object.__new__(XRootDFile)
+    file_obj.buffer = io.BytesIO(b"payload")
+    file_obj.offset = 0
+    file_obj.metaOffset = 0
+    file_obj.timeout = 1
+    file_obj._myFile = DummyFile()
+    file_obj.close = lambda: (_ for _ in ()).throw(AssertionError("close() called"))
+
+    assert file_obj._upload_chunk(final=True) is True
 
 
 @pytest.mark.parametrize("start, end", [(None, None), (None, 10), (1, None), (1, 10)])

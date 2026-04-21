@@ -24,6 +24,7 @@ fsspec-xrootd provides an XRootD implementation for fsspec.
 
 %package -n python3-fsspec-xrootd
 Summary:        %{summary}
+Requires:       python3dist(xrootd)
 
 %description -n python3-fsspec-xrootd
 fsspec-xrootd provides the root:// protocol implementation for fsspec using

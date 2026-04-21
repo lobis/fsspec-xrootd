@@ -1005,8 +1005,6 @@ class XRootDFile(AbstractBufferedFile):  # type: ignore[misc]
             self.buffer.tell(),
             timeout=self.timeout,
         )
-        if final:
-            self.close()
         if not status.ok:
             raise OSError(f"File did not write properly: {status.message}")
         return status.ok
