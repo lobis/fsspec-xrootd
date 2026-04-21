@@ -76,9 +76,3 @@ repos:
         language: pygrep
         entry: PyBind|Numpy|Cmake|CCache|Github|PyTest
         exclude: .pre-commit-config.yaml
-
-  - repo: https://github.com/mgedmin/check-manifest
-    rev: "0.51"
-    hooks:
-      - id: check-manifest
-        stages: [manual]
