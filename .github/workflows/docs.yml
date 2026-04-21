@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
       - main
 
 jobs:
@@ -27,7 +26,7 @@ jobs:
       - name: Set up Conda
         uses: conda-incubator/setup-miniconda@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.14"
           miniforge-version: latest
           activate-environment: fsspec
       - name: Install build environment

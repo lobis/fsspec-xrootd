@@ -102,16 +102,3 @@ required-imports = ["from __future__ import annotations"]
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["T20"]
 "noxfile.py" = ["T20"]
-
-
-[tool.pylint]
-master.py-version = "3.7"
-master.ignore-paths = ["src/fsspec_xrootd/_version.py"]
-reports.output-format = "colorized"
-similarities.ignore-imports = "yes"
-messages_control.disable = [
-    "design",
-    "fixme",
-    "line-too-long",
-    "wrong-import-position",
-]
