@@ -155,16 +155,21 @@ def test_write_rpb_fsspec(localserver, clear_server):
 
 
 def test_upload_chunk_final_does_not_close_recursively():
+    payload = b"payload"
+    writes = []
+
     class DummyStatus:
         ok = True
         message = ""
 
     class DummyFile:
         def write(self, data, offset, size, timeout=None):
+            writes.append((data, offset, size, timeout))
             return DummyStatus(), size
 
     file_obj = XRootDFile.__new__(XRootDFile)
-    file_obj.buffer = io.BytesIO(b"payload")
+    file_obj.buffer = io.BytesIO(payload)
+    file_obj.buffer.seek(0, io.SEEK_END)
     file_obj.offset = 0
     file_obj.metaOffset = 0
     file_obj.timeout = 1
@@ -172,6 +177,7 @@ def test_upload_chunk_final_does_not_close_recursively():
     file_obj.close = lambda: (_ for _ in ()).throw(AssertionError("close() called"))
 
     assert file_obj._upload_chunk(final=True) is True
+    assert writes == [(payload, 0, len(payload), 1)]
 
 
 @pytest.mark.parametrize("start, end", [(None, None), (None, 10), (1, None), (1, 10)])

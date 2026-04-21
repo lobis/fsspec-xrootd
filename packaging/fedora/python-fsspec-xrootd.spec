@@ -15,6 +15,7 @@ BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(xrootd)
 BuildRequires:  xrootd
 
@@ -54,7 +55,7 @@ the XRootD Python bindings.
 %pytest \
     tests/test_package.py \
     tests/test_basicio.py \
-    -k 'invalid_server or invalid_parameters or async_impl or path_parsing'
+    -k 'invalid_server or invalid_parameters or async_impl or path_parsing or upload_chunk_final_does_not_close_recursively'
 
 
 %files -n python3-fsspec-xrootd -f %{pyproject_files}
