@@ -163,7 +163,7 @@ def test_upload_chunk_final_does_not_close_recursively():
         def write(self, data, offset, size, timeout=None):
             return DummyStatus(), size
 
-    file_obj = object.__new__(XRootDFile)
+    file_obj = XRootDFile.__new__(XRootDFile)
     file_obj.buffer = io.BytesIO(b"payload")
     file_obj.offset = 0
     file_obj.metaOffset = 0
