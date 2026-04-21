@@ -1,5 +1,7 @@
 %global pypi_name fsspec_xrootd
 
+# Fedora names the source RPM and the installable binary RPM separately.
+# For this library, users only install python3-fsspec-xrootd.
 Name:           python-fsspec-xrootd
 Version:        0.5.3
 Release:        %autorelease

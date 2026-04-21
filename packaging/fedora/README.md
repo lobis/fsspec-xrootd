@@ -1,9 +1,18 @@
 # Fedora / EPEL 10 packaging
 
-This directory is a starter scaffold for packaging `fsspec-xrootd` as:
+This directory is a starter scaffold for packaging the `fsspec-xrootd` Python
+library for Fedora and EPEL 10.
 
-- source package: `python-fsspec-xrootd`
-- binary package: `python3-fsspec-xrootd`
+In Fedora RPM terms, that shows up with two names for the same packaging flow:
+
+- source RPM name: `python-fsspec-xrootd`
+- installable binary RPM name: `python3-fsspec-xrootd`
+
+This does not mean two separate deliverables or two different library packages.
+It is one library package with the usual Fedora Python naming convention:
+
+- maintainers work from the `python-fsspec-xrootd` spec/source package
+- users install `python3-fsspec-xrootd`
 
 ## Current assumption
 
