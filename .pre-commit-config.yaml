@@ -49,6 +49,8 @@ repos:
       - id: ruff-check
         args: [--fix]
       - id: ruff-format
+        args: [--preview]
+        types_or: [python, pyi, markdown]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.19.1

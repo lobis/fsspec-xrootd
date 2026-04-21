@@ -554,20 +554,18 @@ class XRootDFileSystem(AsyncFileSystem):  # type: ignore[misc]
                     ftype = "other"
                 else:
                     ftype = "file"
-                listing.append(
-                    {
-                        "name": path + "/" + item.name,
-                        "size": item.statinfo.size,
-                        "type": ftype,
-                        "mtime": item.statinfo.modtime,
-                        "mode": _flags_to_mode(flags),
-                        "uid": 0,
-                        "gid": 0,
-                        "nlink": 1,
-                        "atime": item.statinfo.modtime,
-                        "ctime": item.statinfo.modtime,
-                    }
-                )
+                listing.append({
+                    "name": path + "/" + item.name,
+                    "size": item.statinfo.size,
+                    "type": ftype,
+                    "mtime": item.statinfo.modtime,
+                    "mode": _flags_to_mode(flags),
+                    "uid": 0,
+                    "gid": 0,
+                    "nlink": 1,
+                    "atime": item.statinfo.modtime,
+                    "ctime": item.statinfo.modtime,
+                })
             self.dircache[path] = listing
             if detail:
                 return listing
