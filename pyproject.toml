@@ -28,6 +28,24 @@ warn_unreachable = true
 ignore_missing_imports = true
 
 
+[tool.ruff]
+target-version = "py39"
+
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "RUF100", "T20", "UP", "W"]
+ignore = ["E203", "E501", "E722", "B905"]
+
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
+
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["T20"]
+"noxfile.py" = ["T20"]
+
+
 [tool.check-manifest]
 ignore = [
     ".github/**",
@@ -37,10 +55,6 @@ ignore = [
     "src/*/_version.py",
     "noxfile.py",
 ]
-
-[tool.isort]
-profile = "black"
-
 
 [tool.pylint]
 master.py-version = "3.7"

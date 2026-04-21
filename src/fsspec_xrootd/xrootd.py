@@ -9,9 +9,10 @@ import time
 import warnings
 import weakref
 from collections import defaultdict
+from collections.abc import Coroutine, Iterable
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Any, Callable, Coroutine, Iterable, TypeVar, cast
+from typing import Any, Callable, TypeVar, cast
 
 from fsspec.asyn import AsyncFileSystem, _run_coros_in_chunks, sync, sync_wrapper
 from fsspec.exceptions import FSTimeoutError
@@ -1007,7 +1008,6 @@ class XRootDFile(AbstractBufferedFile):  # type: ignore[misc]
             timeout=self.timeout,
         )
         if final:
-            self.closed
             self.close()
         if not status.ok:
             raise OSError(f"File did not write properly: {status.message}")
