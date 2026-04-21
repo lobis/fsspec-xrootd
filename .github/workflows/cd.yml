@@ -25,11 +25,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - uses: hynek/build-and-inspect-python-package@v2.17.0
+      - uses: hynek/build-and-inspect-python-package@v2
 
   publish:
     needs: [dist]
@@ -43,7 +43,7 @@ jobs:
     if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
-      - uses: actions/download-artifact@v8.0.1
+      - uses: actions/download-artifact@v8
         with:
           name: Packages
           path: dist
@@ -53,4 +53,4 @@ jobs:
         with:
           subject-path: "dist/*"
 
-      - uses: pypa/gh-action-pypi-publish@v1.14.0
+      - uses: pypa/gh-action-pypi-publish@release/v1
